@@ -1,0 +1,9 @@
+{
+  "login.header": "Login per continuare",
+  "login.errorEmailMessage": "Mail valida richiesta: ex@abc.xyz",
+  "login.errorPasswordMessage": "Password richiesta",
+  "login.rememberMe": "Ricordami",
+  "login.forgotPassword": "Password dimenticata?",
+  "login.loginButton": "accedi",
+  "login.signUpButton": "iscriviti"
+}

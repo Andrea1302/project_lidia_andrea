@@ -1,0 +1,17 @@
+{
+
+  "login.header": "Login to continue",
+  "login.errorEmailMessage": "Valid email is required: ex@abc.xyz",
+  "login.errorPasswordMessage": "Password is required",
+  "login.rememberMe": "Remember me",
+  "login.forgotPassword": "Forgot password?",
+  "login.loginButton": "login",
+  "login.signUpButton": "sign up",
+
+
+  "register.header": "Register to continue",
+  "register.errorEmailMessage": "Valid email is required: ex@abc.xyz",
+  "register.errorPasswordMessage": "Password is required",
+  "register.rememberMe": "Remember me",
+  "register.loginButton": "login"
+}
