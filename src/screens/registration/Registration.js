@@ -1,7 +1,7 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
 
-import Form from "../../components/funcComponents/pageComponents/form/Form";
+import FormRegistration from "../../components/funcComponents/pageComponents/formRegistration/FormRegistration";
 
 import "./Registration.css";
 import "../login/Login.css"
@@ -12,7 +12,7 @@ const Registration = () => {
       <div className="bgLogin" />
       <div className="contentLogin">
         <h1><FormattedMessage id="register.header"/></h1>
-        <Form />
+        <FormRegistration />
       </div>
     </div>
   );
