@@ -5,5 +5,20 @@
   "login.rememberMe": "Ricordami",
   "login.forgotPassword": "Password dimenticata?",
   "login.loginButton": "accedi",
-  "login.signUpButton": "iscriviti"
+  "login.signUpButton": "iscriviti",
+
+
+  "register.header": "Registrati per continuare",
+  "register.name": "Nome",
+  "register.surname": "Cognome",
+  "register.mail": "Email",
+  "register.birth": "Data di nascita",
+  "register.gender": "Genere",
+  "register.job": "Lavoro",
+  "register.password": "Password",
+  "register.confirm": "Conferma Password",
+  "register.loginButton": "Iscriviti",
+  "register.Policy": "Accetto i Termini e Condizioni",
+  
+    "register.errorConPsw": "Le Password non corrispondono"
 }
