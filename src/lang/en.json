@@ -1,5 +1,4 @@
 {
-
   "login.header": "Login to continue",
   "login.errorEmailMessage": "Valid email is required: ex@abc.xyz",
   "login.errorPasswordMessage": "Password is required",
@@ -10,8 +9,16 @@
 
 
   "register.header": "Register to continue",
-  "register.errorEmailMessage": "Valid email is required: ex@abc.xyz",
-  "register.errorPasswordMessage": "Password is required",
-  "register.rememberMe": "Remember me",
-  "register.loginButton": "login"
+  "register.name": "Name",
+  "register.surname": "Surname",
+  "register.mail": "Email",
+  "register.birth": "Date of birth",
+  "register.gender": "Gender",
+  "register.job": "Job title",
+  "register.password": "Password",
+  "register.confirm": "Confirm Password",
+  "register.loginButton": "Register",
+  "register.Policy": " I agree to the Terms Of user",
+
+  "register.errorConPsw": "Password dont match"
 }
