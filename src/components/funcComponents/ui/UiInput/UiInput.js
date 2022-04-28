@@ -28,6 +28,7 @@ const UiInput = (props) => {
       checked={props.check}
       name={props.name}
       onFocus={returnFocus}
+      disabled = {props.disabled}
     />
   );
 };

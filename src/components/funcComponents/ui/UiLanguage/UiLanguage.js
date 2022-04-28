@@ -23,7 +23,7 @@ const UiLanguage = ({ currLang, callback }) => {
   const renderFlag = (flag, index) => {
     if (flag.lang !== currLang) {
       return (
-          <img key={index} onClick={returnCurrLang(flag.lang)} className="flag" src={flag.path} />
+          <img key={index} onClick={returnCurrLang(flag.lang)} className="flag" src={flag.path} alt="" />
       );
     }
   };
@@ -37,7 +37,7 @@ const UiLanguage = ({ currLang, callback }) => {
       state.toggleDropdown ? "opened" : ""
     }`}>
       <div className="currFlag" onClick={toggle}>
-        <img className="flag" src={currFlag.path} />
+        <img className="flag" src={currFlag.path} alt=""/>
       </div>
       <div
         className={`flagContainer ${
