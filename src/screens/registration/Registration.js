@@ -10,7 +10,7 @@ const Registration = () => {
   return (
     <div className="containerLogin">
       <div className="bgLogin" />
-      <div className="contentLogin">
+      <div className="contentRegistration">
         <h1><FormattedMessage id="register.header"/></h1>
         <FormRegistration />
       </div>
