@@ -19,7 +19,7 @@
   "register.confirm": "Conferma Password",
   "register.loginButton": "Iscriviti",
   "register.Policy": "Accetto i Termini e Condizioni",
-  
+  "register.acceptPolicy": "Accetta per continuare",
   "register.errorName": "Nome è richiesto",
   "register.errorSurname": "Cognome è richiesto",
   "register.errorBirth": "Data di nascita richiesta",
