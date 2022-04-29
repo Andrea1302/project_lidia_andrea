@@ -247,14 +247,65 @@ input:focus {
   transform: translateY(-50%);
   right: 18px;
 }
-
 .errorMessage:hover::before {
   visibility: visible;
   opacity: 1;
 }
 
+
+
+/* error dateofbirth */
+.errorMessageDateOfBirth::before{
+  content: attr(data-validate);
+
+  position: absolute;
+  z-index: 100;
+  max-width: 70%;
+
+  background-color: #fff;
+  border: 1px solid #c80000;
+  border-radius: 2px;
+  padding: 4px 25px 4px 10px;
+
+  top: 30%;
+  right: 12px;
+  transform: translateY(-50%);
+
+  pointer-events: none;
+  font-family: Poppins;
+  font-weight: normal;
+  color: #c80000;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.errorMessageDateOfBirth::after{
+  content: "\f12a";
+  font-family: FontAwesome;
+  display: block;
+  position: absolute;
+  z-index: 110;
+  color: #c80000;
+  font-size: 16px;
+  top: 30%;
+  transform: translateY(-50%);
+  right: 18px;
+}
+.errorMessageDateOfBirth:hover::before{
+  visibility: visible;
+  opacity: 1;
+}
+
+
 @media (max-width: 992px) {
   .errorMessage::before {
+    visibility: visible;
+    opacity: 1;
+  }
+  .errorMessageDateOfBirth::before {
     visibility: visible;
     opacity: 1;
   }

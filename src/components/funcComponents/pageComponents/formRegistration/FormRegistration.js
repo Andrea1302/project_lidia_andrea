@@ -3,15 +3,16 @@ import { useNavigate } from "react-router-dom";
 
 import { useIntl } from "react-intl";
 
+// import components 
 import UiButton from "../../ui/UiButton/UiButton";
 import UiInput from "../../ui/UiInput/UiInput";
 import UiSelect from "../../ui/UiSelect/UiSelect";
 
+// import utils 
 import { checkPassword, checkMail, jobs, errorObj } from "../../../../utils/utils";
 
 import "../form/Form.css";
 import "./FormRegistration.css";
-
 
 const Form = () => {
     const navigate = useNavigate();
@@ -164,7 +165,7 @@ const Form = () => {
             suppErrorPolicy = true
         }
         if (checkMail(state.email) && checkPassword(state.password) && (state.password === state.passwordConfirm) && state.check && state.nameUser !== "" && state.surnameUser !== "" && state.dateOfBirth !== "") {
-            let gender = "";
+            let gender = null;
             if (state.checkGenderM) {
                 gender = intl.formatMessage({ id: "m" })
             } else if (state.checkGenderF) {
@@ -205,7 +206,7 @@ const Form = () => {
     const redirectToLogin = () => {
         navigate("/");
     };
-
+    console.log(state.nameUser)
     return (
         <div className="UiInput">
             {/* nome utente  */}
@@ -293,7 +294,7 @@ const Form = () => {
             {/* data di nascita  */}
             <div
                 data-validate={intl.formatMessage({ id: "register.errorBirth" })}
-                className={`Inferno ${state.error.errorDateOfBirth ? "errorMessage" : ""}`}
+                className={`Inferno ${state.error.errorDateOfBirth ? "errorMessageDateOfBirth" : ""}`}
             >
                 <UiInput
                     css={`inputBox hasVal`}
