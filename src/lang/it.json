@@ -1,10 +1,14 @@
 {
-  "login.header": "Login per continuare",
+  "login.header": "Accedi per continuare",
   "login.rememberMe": "Ricordami",
-  "login.loginButton": "accedi",
-  "login.signUpButton": "iscriviti",
+  "loginButton": "accedi",
+  "signUpButton": "iscriviti",
+
   
-  
+  "register.signUpButton": "Registrati",
+
+  "register.backButton": "Torna a Accedi",
+
   "register.header": "Registrati per continuare",
   "register.name": "Nome",
   "register.surname": "Cognome",

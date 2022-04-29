@@ -2,10 +2,13 @@
   "login.header": "Login to continue",
   "login.rememberMe": "Remember me",
   "login.forgotPassword": "Forgot password?",
-  "login.loginButton": "login",
-  "login.signUpButton": "sign up",
+  "loginButton": "login",
+  "signUpButton": "sign up",
   
-  
+  "register.signUpButton": "register here",
+
+  "register.backButton": "Go back to login",
+
   "register.header": "Register to continue",
   "register.name": "Name",
   "register.surname": "Surname",
