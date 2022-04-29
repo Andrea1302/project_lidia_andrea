@@ -7,7 +7,7 @@ import UiButton from "../../ui/UiButton/UiButton";
 import UiInput from "../../ui/UiInput/UiInput";
 import UiSelect from "../../ui/UiSelect/UiSelect";
 
-import { jobs } from "../../../../utils/utils";
+import { checkPassword, checkMail, jobs } from "../../../../utils/utils";
 
 import "../form/Form.css";
 import "./FormRegistration.css";
@@ -19,13 +19,18 @@ const Form = () => {
         checkGenderM: false,
         checkGenderF: false,
         checkGenderC: false,
+        jobsSelected: null,
         nameUser: "",
         surnameUser: "",
-        dataOfBirth: "",
+        dateOfBirth: "",
         email: "",
         password: "",
+        passwordConfirm: "",
         errorEmail: false,
         errorPassword: false,
+        errorPasswordConfirm : false,
+        errorName : false,
+        errorSurname: false
     });
 
     const navigate = useNavigate();
@@ -79,68 +84,100 @@ const Form = () => {
     }
 
     // funzione per data di nascita 
-    const getDataOfBirth = (e) => {
+    const getDateOfBirth = (e) => {
         setState({
             ...state,
-            dataOfBirth: e.target.value
+            dateOfBirth: e.target.value
         });
     }
 
     // funzione lavoro selezionato 
     const selectedJobs = (e) => {
         console.log(e)
+        setState({
+            ...state,
+            jobsSelected: e
+        })
     }
 
     // render jobs 
-
-    // funzione render materie 
     const renderOptionsSubject = (job, key) => {
         return (
-
-            <option value={job} key={key}>
+            <option disabled={jobs[0] ? true : false} value={job} key={key}>
                 {job}
             </option>
-
         )
     }
-
-
 
     // funzione set email 
     const getEmail = (e) => {
         setState({ ...state, email: e.target.value });
     };
 
+    // funzione set password
     const getPassword = (e) => {
         setState({ ...state, password: e.target.value });
     };
-
+    // funzione reinserisci password 
+    const setPasswordConfirm = (e) => {
+        setState({ ...state, passwordConfirm: e.target.value });
+    }
+    // bottone di registrazione 
     const validateInput = () => {
-        const reMail =
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        const rePassword = /^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!^&+=]).*$/;
+        console.log('name :' ,state.nameUser)
+        console.log('surname :' ,state.surnameUser)
+        console.log('data di nascita :', state.dateOfBirth )
+        console.log('lavoro :', state.jobsSelected )
+        if ( state.checkGenderM){
+            console.log('maschio')
+        } else if ( state.checkGenderF){
+            console.log('femmina')
+        } else if (state.checkGenderC){
+            console.log('cavallo')
+        }
+        console.log('mail', checkMail(state.email))
+        console.log('pass', checkPassword(state.password))
+        console.log('passconfirm', state.passwordConfirm)
+        console.log('accetto termini :' , state.check)
 
+
+        let suppErrorName = state.errorName;
+        let suppErrorSurname = state.errorSurname;
         let suppErrorEmail = state.errorEmail;
         let suppErrorPassword = state.errorPassword;
-
-        if (!reMail.test(state.email)) {
+        let suppErrorPasswordConfirm = state.errorPasswordConfirm;
+        
+        if (state.nameUser === ""){
+            suppErrorName = true;
+        }
+        if (state.surnameUser === ""){
+            suppErrorSurname = true;
+        }
+        if (!checkMail(state.email)) {
             suppErrorEmail = true;
         }
-        if (!rePassword.test(state.password)) {
+        if (!checkPassword(state.password)) {
             suppErrorPassword = true;
         }
-        if (reMail.test(state.email) && rePassword.test(state.password)) {
-            navigate("/");
+        if (state.password !== state.passwordConfirm){
+            suppErrorPasswordConfirm = true;
+        }
+        if (checkMail(state.email) && checkPassword(state.password) && (state.password === state.passwordConfirm) && state.check) {
+            navigate("/home");
         }
 
         setState({
             ...state,
+            errorName: suppErrorName,
+            errorSurname:suppErrorSurname,
             errorEmail: suppErrorEmail,
             errorPassword: suppErrorPassword,
+            errorPasswordConfirm : suppErrorPasswordConfirm
         });
     };
 
-    const redirect = () => {
+    // funzione torna a login 
+    const redirectToLogin = () => {
         navigate("/");
     };
 
@@ -148,8 +185,8 @@ const Form = () => {
         <div className="UiInput">
             {/* nome utente  */}
             <div
-                data-validate={intl.formatMessage({ id: "login.errorEmailMessage" })}
-                className={`Inferno ${state.errorEmail ? "errorMessage" : ""}`}
+                data-validate={intl.formatMessage({ id: "register.errorName" })}
+                className={`Inferno ${state.errorName ? "errorMessage" : ""}`}
             >
                 <UiInput
                     css={`inputBox ${state.nameUser.length > 0 && "hasVal"}`}
@@ -164,8 +201,8 @@ const Form = () => {
 
             {/* cognome utente */}
             <div
-                data-validate={intl.formatMessage({ id: "login.errorEmailMessage" })}
-                className={`Inferno ${state.errorEmail ? "errorMessage" : ""}`}
+                data-validate={intl.formatMessage({ id: "register.errorSurname" })}
+                className={`Inferno ${state.errorSurname ? "errorMessage" : ""}`}
             >
                 <UiInput
                     css={`inputBox ${state.surnameUser.length > 0 && "hasVal"}`}
@@ -210,6 +247,24 @@ const Form = () => {
                 <span className="spanControl"></span>
                 <span className="spanLabel">Password</span>
             </div>
+
+            {/* password confirm  */}
+            <div
+                data-validate={intl.formatMessage({ id: "register.errorConPsw" })}
+                className={`Inferno ${state.errorPasswordConfirm ? "errorMessage" : ""}`}
+            >
+                <UiInput
+                    css={`inputBox ${state.passwordConfirm.length > 0 && "hasVal"}`}
+                    type={"password"}
+                    name="PasswordConfirm"
+                    callback={setPasswordConfirm}
+                    callbackFocus={getInputFocus}
+                />
+                <span className="spanControl"></span>
+                <span className="spanLabel">Confirm Password</span>
+            </div>
+
+
             {/* data di nascita  */}
             <div
                 data-validate={intl.formatMessage({ id: "login.errorEmailMessage" })}
@@ -218,8 +273,8 @@ const Form = () => {
                 <UiInput
                     css={`inputBox hasVal`}
                     type={"date"}
-                    name="dataOfBirth"
-                    callback={getDataOfBirth}
+                    name="DateOfBirth"
+                    callback={getDateOfBirth}
                     callbackFocus={getInputFocus}
                 />
                 <span className="spanControl"></span>
@@ -287,6 +342,8 @@ const Form = () => {
                     </label>
                 </div>
             </div>
+
+            {/* accetta termini e condizioni  */}
             <div className="flexRow">
                 <div>
                     <UiInput
@@ -311,7 +368,7 @@ const Form = () => {
                 css={"signUp"}
                 // label={intl.formatMessage({ id: "login.signUpButton" }).toUpperCase()}
                 label={'Torna al login'}
-                callback={redirect}
+                callback={redirectToLogin}
             />
         </div>
     );
