@@ -120,12 +120,12 @@ const Form = () => {
       </div>
       <UiButton
         css={"login"}
-        label={intl.formatMessage({ id: "login.loginButton" }).toUpperCase()}
+        label={intl.formatMessage({ id: "loginButton" }).toUpperCase()}
         callback={validateInput}
       />
       <UiButton
         css={"signUp"}
-        label={intl.formatMessage({ id: "login.signUpButton" }).toUpperCase()}
+        label={intl.formatMessage({ id: "signUpButton" }).toUpperCase()}
         callback={redirect}
       />
     </div>
