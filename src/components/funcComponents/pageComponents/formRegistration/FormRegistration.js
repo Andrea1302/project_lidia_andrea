@@ -30,7 +30,8 @@ const Form = () => {
         errorPassword: false,
         errorPasswordConfirm : false,
         errorName : false,
-        errorSurname: false
+        errorSurname: false,
+        errorDateOfBirth: false,
     });
 
     const navigate = useNavigate();
@@ -146,6 +147,7 @@ const Form = () => {
         let suppErrorEmail = state.errorEmail;
         let suppErrorPassword = state.errorPassword;
         let suppErrorPasswordConfirm = state.errorPasswordConfirm;
+        let suppErrorDateOfBirth = state.errorDateOfBirth
         
         if (state.nameUser === ""){
             suppErrorName = true;
@@ -162,12 +164,16 @@ const Form = () => {
         if (state.password !== state.passwordConfirm){
             suppErrorPasswordConfirm = true;
         }
-        if (checkMail(state.email) && checkPassword(state.password) && (state.password === state.passwordConfirm) && state.check) {
+        if (state.dateOfBirth === ""){
+            suppErrorDateOfBirth = true;
+        }
+        if (checkMail(state.email) && checkPassword(state.password) && (state.password === state.passwordConfirm) && state.check && state.nameUser!== "" && state.surnameUser !== "" && state.dateOfBirth !== "") {
             navigate("/home");
         }
 
         setState({
             ...state,
+            errorDateOfBirth : suppErrorDateOfBirth,
             errorName: suppErrorName,
             errorSurname:suppErrorSurname,
             errorEmail: suppErrorEmail,
@@ -267,7 +273,7 @@ const Form = () => {
 
             {/* data di nascita  */}
             <div
-                data-validate={intl.formatMessage({ id: "login.errorEmailMessage" })}
+                data-validate={intl.formatMessage({ id: "register.errorBirth" })}
                 className={`Inferno ${state.errorEmail ? "errorMessage" : ""}`}
             >
                 <UiInput
