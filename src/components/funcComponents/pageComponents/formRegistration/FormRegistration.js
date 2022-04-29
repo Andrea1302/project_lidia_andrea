@@ -41,7 +41,12 @@ const Form = () => {
 
     // funzione accept policy 
     const handleClick = () => {
-        setState({ ...state, check: !state.check });
+        let obj = {...state}
+        obj.check = !state.check
+        if (obj.check){
+            obj.errorPolicy = false
+        }
+        setState(obj);
     };
 
     // funzione select gender 
@@ -126,23 +131,7 @@ const Form = () => {
     }
     // bottone di registrazione 
     const validateInput = () => {
-        console.log('name :', state.nameUser)
-        console.log('surname :', state.surnameUser)
-        console.log('data di nascita :', state.dateOfBirth)
-        console.log('lavoro :', state.jobsSelected)
-        if (state.checkGenderM) {
-            console.log('maschio')
-        } else if (state.checkGenderF) {
-            console.log('femmina')
-        } else if (state.checkGenderC) {
-            console.log('cavallo')
-        }
-        console.log('mail', checkMail(state.email))
-        console.log('pass', checkPassword(state.password))
-        console.log('passconfirm', state.passwordConfirm)
-        console.log('accetto termini :', state.check)
-
-
+    
         let suppErrorName = state.errorName;
         let suppErrorSurname = state.errorSurname;
         let suppErrorEmail = state.errorEmail;
@@ -169,10 +158,28 @@ const Form = () => {
         if (state.dateOfBirth === "") {
             suppErrorDateOfBirth = true;
         }
-        if (state.check === false){
+        if (state.check === false) {
             suppErrorPolicy = true
         }
         if (checkMail(state.email) && checkPassword(state.password) && (state.password === state.passwordConfirm) && state.check && state.nameUser !== "" && state.surnameUser !== "" && state.dateOfBirth !== "") {
+            let gender = "";
+            if ( state.checkGenderM ){
+                gender = intl.formatMessage({ id: "m" })
+            } else if (state.checkGenderF){
+                gender = intl.formatMessage({ id: "f" })
+            } else if ( state.checkGenderC) {
+                gender = intl.formatMessage({ id: "c" })
+            }
+            let user = {
+                name : state.nameUser,
+                surname : state.surnameUser,
+                dateOfBirth : state.dateOfBirth,
+                email : state.email,
+                password : state.password,
+                gender : gender,
+                jobs : state.jobsSelected,
+            }
+            console.table(user)
             navigate("/home");
         }
 
@@ -184,7 +191,7 @@ const Form = () => {
             errorEmail: suppErrorEmail,
             errorPassword: suppErrorPassword,
             errorPasswordConfirm: suppErrorPasswordConfirm,
-            errorPolicy : suppErrorPolicy
+            errorPolicy: suppErrorPolicy
         });
     };
 
@@ -280,7 +287,7 @@ const Form = () => {
             {/* data di nascita  */}
             <div
                 data-validate={intl.formatMessage({ id: "register.errorBirth" })}
-                className={`Inferno ${state.dateOfBirth ? "errorMessage" : ""}`}
+                className={`Inferno ${state.errorDateOfBirth ? "errorMessage" : ""}`}
             >
                 <UiInput
                     css={`inputBox hasVal`}
@@ -357,34 +364,32 @@ const Form = () => {
 
             {/* accetta termini e condizioni  */}
             <div className="flexRow">
-                <div>
-                    <div
-                        data-validate={intl.formatMessage({ id: "register.acceptPolicy" })}
-                        className={`Inferno ${state.errorPolicy ? "errorMessage" : ""}`}
-                    >
-                        <UiInput
-                            check={state.check}
-                            name="check"
-                            css={"inputCheck"}
-                            type="checkbox"
-                        />
-                        <label onClick={handleClick} htmlFor="check" className="remember">
-                            {intl.formatMessage({ id: "register.Policy" })}
 
-                        </label>
-                    </div>
+                <div
+                    data-validate={intl.formatMessage({ id: "register.acceptPolicy" })}
+                    className={`policy ${state.errorPolicy ? "errorMessage" : ""}`}
+                >
+                    <UiInput
+                        check={state.check}
+                        name="check"
+                        css={"inputCheck"}
+                        type="checkbox"
+                    />
+                    <label onClick={handleClick} htmlFor="check" className="remember">
+                        {intl.formatMessage({ id: "register.Policy" })}
+
+                    </label>
                 </div>
+
             </div>
             <UiButton
                 css={"login"}
-                // label={intl.formatMessage({ id: "login.loginButton" }).toUpperCase()}
-                label={"Registrati"}
+                label={intl.formatMessage({ id: "register.signUpButton" }).toUpperCase()}
                 callback={validateInput}
             />
             <UiButton
                 css={"signUp"}
-                // label={intl.formatMessage({ id: "login.signUpButton" }).toUpperCase()}
-                label={'Torna al login'}
+                label={intl.formatMessage({ id: "register.backButton" }).toUpperCase()}
                 callback={redirectToLogin}
             />
         </div>

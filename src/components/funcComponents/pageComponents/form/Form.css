@@ -42,7 +42,19 @@
   border-radius: 10px;
   margin-bottom: 10px;
 }
-
+.policy{
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  position: relative;
+  border: none;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  justify-content: start;
+}
 input.inputBox {
   height: 100%;
   -webkit-transition: all 0.4s;

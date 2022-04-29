@@ -8,3 +8,25 @@
     height: 100%;
     overflow-y: scroll;
 }
+.title_register{
+    margin-top: 24px;
+}
+
+@media(max-width:992px){
+    .contentRegistration{
+        width: 50%;
+        padding: 0 30px;
+    }
+    .bgLogin{
+        width: 50%;
+    }
+}
+
+@media(max-width:768px){
+    .contentRegistration{
+        width: 100%;
+    }
+    .bgLogin{
+        display: none
+    }
+}
