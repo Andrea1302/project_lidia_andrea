@@ -1,13 +1,11 @@
 {
   "login.header": "Login to continue",
-  "login.errorEmailMessage": "Valid email is required: ex@abc.xyz",
-  "login.errorPasswordMessage": "Password is required",
   "login.rememberMe": "Remember me",
   "login.forgotPassword": "Forgot password?",
   "login.loginButton": "login",
   "login.signUpButton": "sign up",
-
-
+  
+  
   "register.header": "Register to continue",
   "register.name": "Name",
   "register.surname": "Surname",
@@ -22,6 +20,10 @@
   "register.confirm": "Confirm Password",
   "register.loginButton": "Register",
   "register.Policy": " I agree to the Terms Of user",
-
+  
+  "register.errorName": "Name is required",
+  "register.errorSurname": "Surname is required",
+  "login.errorEmailMessage": "Valid email is required: ex@abc.xyz",
+  "login.errorPasswordMessage": "Password is required",
   "register.errorConPsw": "Password dont match"
 }
