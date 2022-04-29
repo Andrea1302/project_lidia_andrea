@@ -11,8 +11,12 @@ import UiSelect from "../../../funcComponents/ui/UiSelect/UiSelect";
 // import utils 
 import { checkPassword, checkMail, jobs, errorObj } from "../../../../utils/utils";
 
+// CSS 
 import "../formLogin/Form.css";
 import "./FormRegistration.css";
+
+import paths from "../../../../route/paths";
+
 
 const Form = () => {
     const navigate = useNavigate();
@@ -183,7 +187,7 @@ const Form = () => {
                 jobs: state.jobsSelected,
             }
             console.table(user)
-            navigate("/home");
+            navigate(paths.HOMEPAGE);
         }
 
         setState({
@@ -204,7 +208,7 @@ const Form = () => {
 
     // funzione torna a login 
     const redirectToLogin = () => {
-        navigate("/");
+        navigate(paths.LOGINBOX);
     };
     console.log(state.nameUser)
     return (

@@ -2,17 +2,21 @@ import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { IntlProvider } from "react-intl";
 
-import Login from "./screens/login/Login";
-import Home from "./screens/home/Home";
-import NotFound from "./screens/NotFound";
-import Registration from "./screens/registration/Registration";
+// screens
+import Login from "../screens/login/Login";
+import Home from "../screens/home/Home";
+import NotFound from "../screens/notFound/NotFound";
+import Registration from "../screens/registration/Registration";
 
 
-import UiLanguage from "./components/funcComponents/ui/UiLanguage/UiLanguage";
+import UiLanguage from "../components/funcComponents/ui/UiLanguage/UiLanguage";
 
 //i18n import
-import English from "./lang/en.json";
-import Italian from "./lang/it.json";
+import English from "../lang/en.json";
+import Italian from "../lang/it.json";
+
+// PATHS 
+import paths from './paths';
 
 function Routing() {
   const checkBrowserLang = () => {
@@ -51,10 +55,10 @@ function Routing() {
         messages={lang.translations}
       >
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/registration" element={<Registration />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path={paths.LOGINBOX} element={<Login />} />
+          <Route path={paths.HOMEPAGE} element={<Home />} />
+          <Route path={paths.REGISTRATION} element={<Registration />} />
+          <Route path={paths.NOTFOUND} element={<NotFound />} />
         </Routes>
       </IntlProvider>
     </>

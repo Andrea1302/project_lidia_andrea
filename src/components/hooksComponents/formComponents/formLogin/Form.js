@@ -11,7 +11,10 @@ import UiInput from "../../../funcComponents/ui/UiInput/UiInput";
 import "./Form.css";
 
 // import utils 
-import { checkMail, checkPassword } from '../../../../utils/utils'
+import { checkMail, checkPassword } from '../../../../utils/utils';
+
+// PATHS 
+import paths from "../../../../route/paths";
 
 const Form = () => {
 
@@ -67,7 +70,7 @@ const Form = () => {
       suppErrorPassword = true;
     }
     if (checkMail(state.email) && checkPassword(state.password)) {
-      navigate("/home");
+      navigate(paths.HOMEPAGE);
     }
 
     setState({
@@ -79,7 +82,7 @@ const Form = () => {
 
   // vai alla pagina di registrazione 
   const redirect = () => {
-    navigate("/registration");
+    navigate(paths.REGISTRATION);
   };
 
   return (
