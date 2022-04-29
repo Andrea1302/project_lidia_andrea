@@ -3,12 +3,23 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { useIntl } from "react-intl";
 
-import UiButton from "../../ui/UiButton/UiButton";
-import UiInput from "../../ui/UiInput/UiInput";
+// import components 
+import UiButton from "../../../funcComponents/ui/UiButton/UiButton";
+import UiInput from "../../../funcComponents/ui/UiInput/UiInput";
 
+// css 
 import "./Form.css";
 
+// import utils 
+import { checkMail, checkPassword } from '../../../../utils/utils'
+
 const Form = () => {
+
+
+  const navigate = useNavigate();
+  const intl = useIntl();
+
+
   const [state, setState] = useState({
     check: false,
     email: "",
@@ -17,13 +28,12 @@ const Form = () => {
     errorPassword: false,
   });
 
-  const navigate = useNavigate();
-  const intl = useIntl();
-
+  // funzione ricordami 
   const handleClick = () => {
     setState({ ...state, check: !state.check });
   };
 
+  // funzione onFocus ( toglie l errore) 
   const getInputFocus = (e) => {
     let stateCpy = Object.assign(state);
 
@@ -35,30 +45,29 @@ const Form = () => {
     });
   };
 
+  // set mail 
   const getEmail = (e) => {
     setState({ ...state, email: e.target.value });
   };
 
+  // set password 
   const getPassword = (e) => {
     setState({ ...state, password: e.target.value });
   };
 
+  // funzione validate input 
   const validateInput = () => {
-    const reMail =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const rePassword = /^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!^&+=]).*$/;
-
     let suppErrorEmail = state.errorEmail;
     let suppErrorPassword = state.errorPassword;
 
-    if (!reMail.test(state.email)) {
+    if (!checkMail(state.email)) {
       suppErrorEmail = true;
     }
-    if (!rePassword.test(state.password)) {
+    if (!checkPassword(state.password)) {
       suppErrorPassword = true;
     }
-    if (reMail.test(state.email) && rePassword.test(state.password)) {
-      navigate("/");
+    if (checkMail(state.email) && checkPassword(state.password)) {
+      navigate("/home");
     }
 
     setState({
@@ -68,6 +77,7 @@ const Form = () => {
     });
   };
 
+  // vai alla pagina di registrazione 
   const redirect = () => {
     navigate("/registration");
   };

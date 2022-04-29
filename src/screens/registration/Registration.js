@@ -1,7 +1,7 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
 
-import FormRegistration from "../../components/funcComponents/pageComponents/formRegistration/FormRegistration";
+import FormRegistration from "../../components/hooksComponents/formComponents/formRegistration/FormRegistration";
 
 import "./Registration.css";
 import "../login/Login.css"

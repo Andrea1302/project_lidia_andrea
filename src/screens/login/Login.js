@@ -1,7 +1,7 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
 
-import Form from "../../components/funcComponents/pageComponents/form/Form";
+import Form from "../../components/hooksComponents/formComponents/formLogin/Form";
 
 import "./Login.css";
 

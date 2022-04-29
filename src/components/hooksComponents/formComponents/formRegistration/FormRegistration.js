@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 
 // import components 
-import UiButton from "../../ui/UiButton/UiButton";
-import UiInput from "../../ui/UiInput/UiInput";
-import UiSelect from "../../ui/UiSelect/UiSelect";
+import UiButton from "../../../funcComponents/ui/UiButton/UiButton";
+import UiInput from "../../../funcComponents/ui/UiInput/UiInput";
+import UiSelect from "../../../funcComponents/ui/UiSelect/UiSelect";
 
 // import utils 
 import { checkPassword, checkMail, jobs, errorObj } from "../../../../utils/utils";
 
-import "../form/Form.css";
+import "../formLogin/Form.css";
 import "./FormRegistration.css";
 
 const Form = () => {
