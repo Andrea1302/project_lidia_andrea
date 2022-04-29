@@ -7,13 +7,16 @@ import UiButton from "../../ui/UiButton/UiButton";
 import UiInput from "../../ui/UiInput/UiInput";
 import UiSelect from "../../ui/UiSelect/UiSelect";
 
-import { checkPassword, checkMail, jobs } from "../../../../utils/utils";
+import { checkPassword, checkMail, jobs, errorObj } from "../../../../utils/utils";
 
 import "../form/Form.css";
 import "./FormRegistration.css";
 
 
 const Form = () => {
+    const navigate = useNavigate();
+    const intl = useIntl();
+
     const [state, setState] = useState({
         check: false,
         checkGenderM: false,
@@ -26,25 +29,15 @@ const Form = () => {
         email: "",
         password: "",
         passwordConfirm: "",
-        errorEmail: false,
-        errorPassword: false,
-        errorPasswordConfirm: false,
-        errorName: false,
-        errorSurname: false,
-        errorDateOfBirth: false,
-        errorPolicy: false,
+        error: errorObj,
     });
-
-    const navigate = useNavigate();
-    const intl = useIntl();
-
 
     // funzione accept policy 
     const handleClick = () => {
-        let obj = {...state}
+        let obj = { ...state }
         obj.check = !state.check
-        if (obj.check){
-            obj.errorPolicy = false
+        if (obj.check) {
+            obj.error.errorPolicy = false
         }
         setState(obj);
     };
@@ -70,37 +63,46 @@ const Form = () => {
         stateCpy[`error${e.target.getAttribute("name")}`] = false;
         setState({
             ...state,
-            errorEmail: stateCpy.errorEmail,
-            errorPassword: stateCpy.errorPassword,
+            error: {
+                ...state.error,
+                errorEmail: stateCpy.errorEmail,
+                errorPassword: stateCpy.errorPassword,
+            }
         });
     };
 
     // funzione per nome utente 
     const getName = (e) => {
-        setState({
-            ...state,
-            nameUser: e.target.value
-        });
+        let obj = {...state}
+        obj.nameUser = e.target.value
+        if (obj.nameUser !== ""){
+            obj.error.errorName = false
+        }
+        setState(obj);
     }
     // funzione per cognome utente 
     const getSurname = (e) => {
-        setState({
-            ...state,
-            surnameUser: e.target.value
-        });
+        let obj = {...state}
+        obj.surnameUser = e.target.value
+        if (obj.surnameUser !== ""){
+            obj.error.errorSurname = false
+        }
+        setState(obj);
     }
 
     // funzione per data di nascita 
     const getDateOfBirth = (e) => {
-        setState({
-            ...state,
-            dateOfBirth: e.target.value
-        });
+
+        let obj = {...state}
+        obj.dateOfBirth = e.target.value
+        if (obj.dateOfBirth !== ""){
+            obj.error.errorDateOfBirth = false
+        }
+        setState(obj);
     }
 
     // funzione lavoro selezionato 
     const selectedJobs = (e) => {
-        console.log(e)
         setState({
             ...state,
             jobsSelected: e
@@ -131,14 +133,14 @@ const Form = () => {
     }
     // bottone di registrazione 
     const validateInput = () => {
-    
-        let suppErrorName = state.errorName;
-        let suppErrorSurname = state.errorSurname;
-        let suppErrorEmail = state.errorEmail;
-        let suppErrorPassword = state.errorPassword;
-        let suppErrorPasswordConfirm = state.errorPasswordConfirm;
-        let suppErrorDateOfBirth = state.errorDateOfBirth;
-        let suppErrorPolicy = state.errorPolicy;
+
+        let suppErrorName = state.error.errorName;
+        let suppErrorSurname = state.error.errorSurname;
+        let suppErrorEmail = state.error.errorEmail;
+        let suppErrorPassword = state.error.errorPassword;
+        let suppErrorPasswordConfirm = state.error.errorPasswordConfirm;
+        let suppErrorDateOfBirth = state.error.errorDateOfBirth;
+        let suppErrorPolicy = state.error.errorPolicy;
 
         if (state.nameUser === "") {
             suppErrorName = true;
@@ -163,21 +165,21 @@ const Form = () => {
         }
         if (checkMail(state.email) && checkPassword(state.password) && (state.password === state.passwordConfirm) && state.check && state.nameUser !== "" && state.surnameUser !== "" && state.dateOfBirth !== "") {
             let gender = "";
-            if ( state.checkGenderM ){
+            if (state.checkGenderM) {
                 gender = intl.formatMessage({ id: "m" })
-            } else if (state.checkGenderF){
+            } else if (state.checkGenderF) {
                 gender = intl.formatMessage({ id: "f" })
-            } else if ( state.checkGenderC) {
+            } else if (state.checkGenderC) {
                 gender = intl.formatMessage({ id: "c" })
             }
             let user = {
-                name : state.nameUser,
-                surname : state.surnameUser,
-                dateOfBirth : state.dateOfBirth,
-                email : state.email,
-                password : state.password,
-                gender : gender,
-                jobs : state.jobsSelected,
+                name: state.nameUser,
+                surname: state.surnameUser,
+                dateOfBirth: state.dateOfBirth,
+                email: state.email,
+                password: state.password,
+                gender: gender,
+                jobs: state.jobsSelected,
             }
             console.table(user)
             navigate("/home");
@@ -185,13 +187,17 @@ const Form = () => {
 
         setState({
             ...state,
-            errorDateOfBirth: suppErrorDateOfBirth,
-            errorName: suppErrorName,
-            errorSurname: suppErrorSurname,
-            errorEmail: suppErrorEmail,
-            errorPassword: suppErrorPassword,
-            errorPasswordConfirm: suppErrorPasswordConfirm,
-            errorPolicy: suppErrorPolicy
+            error: {
+                ...state.error,
+                errorDateOfBirth: suppErrorDateOfBirth,
+                errorName: suppErrorName,
+                errorSurname: suppErrorSurname,
+                errorEmail: suppErrorEmail,
+                errorPassword: suppErrorPassword,
+                errorPasswordConfirm: suppErrorPasswordConfirm,
+                errorPolicy: suppErrorPolicy
+            }
+
         });
     };
 
@@ -205,7 +211,7 @@ const Form = () => {
             {/* nome utente  */}
             <div
                 data-validate={intl.formatMessage({ id: "register.errorName" })}
-                className={`Inferno ${state.errorName ? "errorMessage" : ""}`}
+                className={`Inferno ${state.error.errorName ? "errorMessage" : ""}`}
             >
                 <UiInput
                     css={`inputBox ${state.nameUser.length > 0 && "hasVal"}`}
@@ -221,7 +227,7 @@ const Form = () => {
             {/* cognome utente */}
             <div
                 data-validate={intl.formatMessage({ id: "register.errorSurname" })}
-                className={`Inferno ${state.errorSurname ? "errorMessage" : ""}`}
+                className={`Inferno ${state.error.errorSurname ? "errorMessage" : ""}`}
             >
                 <UiInput
                     css={`inputBox ${state.surnameUser.length > 0 && "hasVal"}`}
@@ -238,7 +244,7 @@ const Form = () => {
             {/* email  */}
             <div
                 data-validate={intl.formatMessage({ id: "login.errorEmailMessage" })}
-                className={`Inferno ${state.errorEmail ? "errorMessage" : ""}`}
+                className={`Inferno ${state.error.errorEmail ? "errorMessage" : ""}`}
             >
                 <UiInput
                     css={`inputBox ${state.email.length > 0 && "hasVal"}`}
@@ -254,7 +260,7 @@ const Form = () => {
             {/* password  */}
             <div
                 data-validate={intl.formatMessage({ id: "login.errorPasswordMessage" })}
-                className={`Inferno ${state.errorPassword ? "errorMessage" : ""}`}
+                className={`Inferno ${state.error.errorPassword ? "errorMessage" : ""}`}
             >
                 <UiInput
                     css={`inputBox ${state.password.length > 0 && "hasVal"}`}
@@ -270,7 +276,7 @@ const Form = () => {
             {/* password confirm  */}
             <div
                 data-validate={intl.formatMessage({ id: "register.errorConPsw" })}
-                className={`Inferno ${state.errorPasswordConfirm ? "errorMessage" : ""}`}
+                className={`Inferno ${state.error.errorPasswordConfirm ? "errorMessage" : ""}`}
             >
                 <UiInput
                     css={`inputBox ${state.passwordConfirm.length > 0 && "hasVal"}`}
@@ -287,7 +293,7 @@ const Form = () => {
             {/* data di nascita  */}
             <div
                 data-validate={intl.formatMessage({ id: "register.errorBirth" })}
-                className={`Inferno ${state.errorDateOfBirth ? "errorMessage" : ""}`}
+                className={`Inferno ${state.error.errorDateOfBirth ? "errorMessage" : ""}`}
             >
                 <UiInput
                     css={`inputBox hasVal`}
@@ -348,7 +354,7 @@ const Form = () => {
                 {/* genere c */}
                 <div>
                     <UiInput
-                        check={state.checkGenderc}
+                        check={state.checkGenderC}
                         name="check_gender_c"
                         type="radio"
                         callback={handleClickGender}
@@ -367,7 +373,7 @@ const Form = () => {
 
                 <div
                     data-validate={intl.formatMessage({ id: "register.acceptPolicy" })}
-                    className={`policy ${state.errorPolicy ? "errorMessage" : ""}`}
+                    className={`policy ${state.error.errorPolicy ? "errorMessage" : ""}`}
                 >
                     <UiInput
                         check={state.check}

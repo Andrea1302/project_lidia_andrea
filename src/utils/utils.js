@@ -1,3 +1,13 @@
+// oggetto errori 
+const errorObj = {
+    errorEmail: false,
+    errorPassword: false,
+    errorPasswordConfirm: false,
+    errorName: false,
+    errorSurname: false,
+    errorDateOfBirth: false,
+    errorPolicy: false,
+}
 // funzione controllo mail 
 function checkMail(mail) {
 
@@ -9,7 +19,6 @@ function checkPassword(password) {
     let regex = /^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!^&+=]).*$/;
     return regex.test(password)
 }
-
 
 let jobs = [
     '',
@@ -23,4 +32,4 @@ let jobs = [
     'altro',
 ]
 
-export { checkMail, checkPassword, jobs }
+export {checkMail, checkPassword, jobs,errorObj }
