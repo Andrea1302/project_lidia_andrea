@@ -22,6 +22,7 @@
   
   "register.errorName": "Nome è richiesto",
   "register.errorSurname": "Cognome è richiesto",
+  "register.errorBirth": "Data di nascita richiesta",
   "login.errorEmailMessage": "Mail valida richiesta: ex@abc.xyz",
   "login.errorPasswordMessage": "Password richiesta",
   "login.forgotPassword": "Password dimenticata?",

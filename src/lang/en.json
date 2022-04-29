@@ -21,6 +21,7 @@
   "register.loginButton": "Register",
   "register.Policy": " I agree to the Terms Of user",
   
+  "register.errorBirth": "Date of birth required",
   "register.errorName": "Name is required",
   "register.errorSurname": "Surname is required",
   "login.errorEmailMessage": "Valid email is required: ex@abc.xyz",
