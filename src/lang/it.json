@@ -20,6 +20,8 @@
   "register.loginButton": "Iscriviti",
   "register.Policy": "Accetto i Termini e Condizioni",
   
+  "register.errorName": "Nome è richiesto",
+  "register.errorSurname": "Cognome è richiesto",
   "login.errorEmailMessage": "Mail valida richiesta: ex@abc.xyz",
   "login.errorPasswordMessage": "Password richiesta",
   "login.forgotPassword": "Password dimenticata?",
