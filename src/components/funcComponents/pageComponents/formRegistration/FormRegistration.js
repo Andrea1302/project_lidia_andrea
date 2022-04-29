@@ -28,10 +28,11 @@ const Form = () => {
         passwordConfirm: "",
         errorEmail: false,
         errorPassword: false,
-        errorPasswordConfirm : false,
-        errorName : false,
+        errorPasswordConfirm: false,
+        errorName: false,
         errorSurname: false,
         errorDateOfBirth: false,
+        errorPolicy: false,
     });
 
     const navigate = useNavigate();
@@ -125,21 +126,21 @@ const Form = () => {
     }
     // bottone di registrazione 
     const validateInput = () => {
-        console.log('name :' ,state.nameUser)
-        console.log('surname :' ,state.surnameUser)
-        console.log('data di nascita :', state.dateOfBirth )
-        console.log('lavoro :', state.jobsSelected )
-        if ( state.checkGenderM){
+        console.log('name :', state.nameUser)
+        console.log('surname :', state.surnameUser)
+        console.log('data di nascita :', state.dateOfBirth)
+        console.log('lavoro :', state.jobsSelected)
+        if (state.checkGenderM) {
             console.log('maschio')
-        } else if ( state.checkGenderF){
+        } else if (state.checkGenderF) {
             console.log('femmina')
-        } else if (state.checkGenderC){
+        } else if (state.checkGenderC) {
             console.log('cavallo')
         }
         console.log('mail', checkMail(state.email))
         console.log('pass', checkPassword(state.password))
         console.log('passconfirm', state.passwordConfirm)
-        console.log('accetto termini :' , state.check)
+        console.log('accetto termini :', state.check)
 
 
         let suppErrorName = state.errorName;
@@ -147,12 +148,13 @@ const Form = () => {
         let suppErrorEmail = state.errorEmail;
         let suppErrorPassword = state.errorPassword;
         let suppErrorPasswordConfirm = state.errorPasswordConfirm;
-        let suppErrorDateOfBirth = state.errorDateOfBirth
-        
-        if (state.nameUser === ""){
+        let suppErrorDateOfBirth = state.errorDateOfBirth;
+        let suppErrorPolicy = state.errorPolicy;
+
+        if (state.nameUser === "") {
             suppErrorName = true;
         }
-        if (state.surnameUser === ""){
+        if (state.surnameUser === "") {
             suppErrorSurname = true;
         }
         if (!checkMail(state.email)) {
@@ -161,24 +163,28 @@ const Form = () => {
         if (!checkPassword(state.password)) {
             suppErrorPassword = true;
         }
-        if (state.password !== state.passwordConfirm){
+        if (state.password !== state.passwordConfirm) {
             suppErrorPasswordConfirm = true;
         }
-        if (state.dateOfBirth === ""){
+        if (state.dateOfBirth === "") {
             suppErrorDateOfBirth = true;
         }
-        if (checkMail(state.email) && checkPassword(state.password) && (state.password === state.passwordConfirm) && state.check && state.nameUser!== "" && state.surnameUser !== "" && state.dateOfBirth !== "") {
+        if (state.check === false){
+            suppErrorPolicy = true
+        }
+        if (checkMail(state.email) && checkPassword(state.password) && (state.password === state.passwordConfirm) && state.check && state.nameUser !== "" && state.surnameUser !== "" && state.dateOfBirth !== "") {
             navigate("/home");
         }
 
         setState({
             ...state,
-            errorDateOfBirth : suppErrorDateOfBirth,
+            errorDateOfBirth: suppErrorDateOfBirth,
             errorName: suppErrorName,
-            errorSurname:suppErrorSurname,
+            errorSurname: suppErrorSurname,
             errorEmail: suppErrorEmail,
             errorPassword: suppErrorPassword,
-            errorPasswordConfirm : suppErrorPasswordConfirm
+            errorPasswordConfirm: suppErrorPasswordConfirm,
+            errorPolicy : suppErrorPolicy
         });
     };
 
@@ -274,7 +280,7 @@ const Form = () => {
             {/* data di nascita  */}
             <div
                 data-validate={intl.formatMessage({ id: "register.errorBirth" })}
-                className={`Inferno ${state.errorEmail ? "errorMessage" : ""}`}
+                className={`Inferno ${state.dateOfBirth ? "errorMessage" : ""}`}
             >
                 <UiInput
                     css={`inputBox hasVal`}
@@ -352,16 +358,21 @@ const Form = () => {
             {/* accetta termini e condizioni  */}
             <div className="flexRow">
                 <div>
-                    <UiInput
-                        check={state.check}
-                        name="check"
-                        css={"inputCheck"}
-                        type="checkbox"
-                    />
-                    <label onClick={handleClick} htmlFor="check" className="remember">
-                        {intl.formatMessage({ id: "register.Policy" })}
+                    <div
+                        data-validate={intl.formatMessage({ id: "register.acceptPolicy" })}
+                        className={`Inferno ${state.errorPolicy ? "errorMessage" : ""}`}
+                    >
+                        <UiInput
+                            check={state.check}
+                            name="check"
+                            css={"inputCheck"}
+                            type="checkbox"
+                        />
+                        <label onClick={handleClick} htmlFor="check" className="remember">
+                            {intl.formatMessage({ id: "register.Policy" })}
 
-                    </label>
+                        </label>
+                    </div>
                 </div>
             </div>
             <UiButton
